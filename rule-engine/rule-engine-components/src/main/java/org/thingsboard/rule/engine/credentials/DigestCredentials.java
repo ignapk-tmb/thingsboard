@@ -15,16 +15,17 @@
  */
 package org.thingsboard.rule.engine.credentials;
 
-public enum CredentialsType {
-    ANONYMOUS("anonymous"),
-    BASIC("basic"),
-    DIGEST("digest"),
-    SAS("sas"),
-    CERT_PEM("cert.PEM");
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Data;
 
-    private final String label;
+@Data
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class DigestCredentials implements ClientCredentials {
+    private String username;
+    private String password;
 
-    CredentialsType(String label) {
-        this.label = label;
+    @Override
+    public CredentialsType getType() {
+        return CredentialsType.DIGEST;
     }
 }
